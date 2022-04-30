@@ -3,8 +3,10 @@ const {getCarProviders, getCarProvider, createCarProvider, updateCarProvider, de
 
 const router = express.Router();
 
+const {protect, authorize} = require('../middleware/auth');
+
 //router.route('/carProviders').get(getCarProviders);
-router.route('/').get(getCarProviders).post(createCarProvider);
-router.route('/:id').get(getCarProvider).put(updateCarProvider).delete(deleteCarProvider);
+router.route('/').get(getCarProviders).post(protect, authorize('admin'), createCarProvider);
+router.route('/:id').get(getCarProvider).put(protect, authorize('admin'), updateCarProvider).delete(protect, authorize('admin'), deleteCarProvider);
 
 module.exports = router;
