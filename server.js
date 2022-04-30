@@ -12,6 +12,7 @@ connectDB();
 //Routes files
 const carproviders = require('./routes/carproviders');
 const auth = require('./routes/auth');
+const bookings = require('./routes/bookings');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cookieParser());
 //Mount routers
 app.use('/api/v1/carproviders', carproviders);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/bookings', bookings);
 
 const PORT = process.env.PORT || 4500;
 const server = app.listen(PORT, console.log('Server running in', process.env.NODE_ENV, 'mode on port', PORT));

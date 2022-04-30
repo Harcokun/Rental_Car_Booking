@@ -31,25 +31,24 @@ const CarProviderSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a region']
     }
+}, {
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true}
 });
-// , {
-//     toJSON: {virtuals: true},
-//     toObject: {virtuals: true}
-// });
 
-// //Cascade delete appointments when a car provider is deleted
-// CarProviderSchema.pre("remove", async function (next) {
-//     console.log(`Bookings being removed from car provider ${this._id}`);
-//     await this.model("Booking").deleteMany({ car: this._id });
-//     next();
-// });
+//Cascade delete appointments when a car provider is deleted
+CarProviderSchema.pre("remove", async function (next) {
+    console.log(`Bookings being removed from car provider ${this._id}`);
+    await this.model("Booking").deleteMany({ car: this._id });
+    next();
+});
 
-// //Reverse populate with virtuals
-// CarProviderSchema.virtual('bookings', {
-//     ref: 'Booking',
-//     localField: '_id',
-//     foreignField: 'car',
-//     justOne: false
-// });
+//Reverse populate with virtuals
+CarProviderSchema.virtual('bookings', {
+    ref: 'Booking',
+    localField: '_id',
+    foreignField: 'carprovider',
+    justOne: false
+});
 
 module.exports = mongoose.model('CarProvider', CarProviderSchema);
