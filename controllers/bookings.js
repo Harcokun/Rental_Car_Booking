@@ -105,7 +105,7 @@ exports.addBooking = async (req, res, next) => {
         if(existedBookings.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({
                 success: false,
-                message: `The user with ID ${req.user.id} has already made 3 bookings`
+                message: `The user name [${req.user.name}] (ID: ${req.user.id}) has already made 3 bookings`
             });
         }
         const booking = await Booking.create(req.body);
