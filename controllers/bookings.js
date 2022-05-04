@@ -23,9 +23,14 @@ exports.getBookings = async (req, res, next) => {
             });
         }
         else {
-            query = Booking.find().populate({
+            query = Booking.find()
+            .populate({
                 path: 'carprovider',
                 select: 'name province tel'
+            })
+            .populate({
+                path: 'user',
+                select: 'name'
             });
         }
     }
