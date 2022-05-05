@@ -26,7 +26,7 @@ exports.getCarProviders = async (req, res, next) => {
   );
 
   //Finding resource
-  query = CarProvider.find(JSON.parse(queryStr)).populate("bookings");
+  query = CarProvider.find(JSON.parse(queryStr));
 
   //Select Fields
   if (req.query.select) {
